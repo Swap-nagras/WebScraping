@@ -1,7 +1,9 @@
 from selenium import webdriver
 from selenium.webdriver.chrome.service import Service
+import time
 chrome_driver_path = r"C:\Users\swnagras\Downloads\chromedriver-win64\chromedriver.exe"
 service = Service(chrome_driver_path)
+
 
 def get_drvier():
   # Set options to make browsing easier
@@ -17,9 +19,16 @@ def get_drvier():
   driver.get("http://automated.pythonanywhere.com")
   return driver
 
+def clean_text(text):
+  #print(text.split(": "))
+  output = float(text.split(": ")[1])
+  return output
+
+
 def main():
   driver = get_drvier()
-  element = driver.find_element(by="xpath", value="/html/body/div[1]/div/h1[1]")
-  return element.text
+  time.sleep(2)
+  element = driver.find_element(by="xpath", value="/html/body/div[1]/div/h1[2]")
+  return clean_text(element.text)
 
 print(main())
